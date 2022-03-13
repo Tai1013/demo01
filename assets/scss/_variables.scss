@@ -1,0 +1,22 @@
+$themes: (
+    light: (
+        main_color: #1c97ce,
+    ),
+    dark: (
+        main_color: #1c97ce,
+    )
+);
+
+$theme-map: null;
+@mixin themeify {
+    @each $theme-name, $map in $themes {
+        $theme-map: $map !global;
+        [data-theme="#{$theme-name}"] & {
+            @content;
+        }
+    }
+}
+
+@function theme($key) {
+    @return map-get($theme-map, $key);
+}
