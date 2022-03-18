@@ -67,7 +67,7 @@ export default {
     build: {},
 
     router: {
-        middleware: 'authenticated'
+        middleware: ['authenticated','device']
     },
 
     loading: {},
