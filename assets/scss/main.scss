@@ -1,8 +1,79 @@
 .page-enter-active,
 .page-leave-active {
-  transition: opacity 0.5s;
+    transition: opacity 0.5s;
 }
 .page-enter,
 .page-leave-active {
-  opacity: 0;
+    opacity: 0;
+}
+
+html {
+    font-size: 10px;
+}
+
+body {
+    min-width: 320px;
+    font-family: Arial, Helvetica, sans-serif;
+    @include system {
+        color: system("font");
+        background: system("back_color");
+    }
+}
+
+.container {
+    margin: 0 auto;
+    max-width: 1600px;
+    width: 97%;
+    height: 100%;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    &.justify-between {
+        justify-content: space-between;
+    }
+    &.justify-center {
+        justify-content: center;
+    }
+    &.align-center {
+        align-items: center;
+    }
+}
+
+input {
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    outline: none;
+    box-sizing: border-box;
+    &.error {
+        border: 2px solid #fc5a5a;
+    }
+}
+
+button {
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    outline: none;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: 0.3s;
+    color: #ffffff;
+    @include themeify {
+        background-color: theme('main_color');
+        &:hover {
+            background-color: theme('main_color_dark') ;
+        }
+    }
+}
+
+a {
+    transition: 0.3s;
+    @include system {
+        color: system("font");
+    }
 }

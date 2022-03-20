@@ -1,7 +1,7 @@
 <template>
     <div>
         <h1 v-if="error.statusCode === 404">Page not found</h1>
-        123
+        {{error.statusCode}}
     </div>
 </template>
 <script>

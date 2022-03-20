@@ -10,7 +10,8 @@ export default {
         title: 'demo01',
         htmlAttrs: {
             lang: 'en',
-            'data-theme': 'light'
+            theme: '1c97ce',
+            system: 'light'
         },
         meta: [
             { charset: 'utf-8' },
@@ -30,6 +31,7 @@ export default {
 
     // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
     plugins: [
+        '@/plugins/fontawesome',
         {
             src: '@/plugins/axios',
             ssr: true // 預設為true，會同時在服務端（asyncData（{$axios}））和客戶端（this.$axios）同時攔截axios請求，設為false就只會攔截客戶端

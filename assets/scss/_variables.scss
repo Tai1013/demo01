@@ -1,22 +1,47 @@
-$themes: (
+$systems: (
     light: (
-        main_color: #1c97ce,
+        font: #181818,
+        box_color: #ffffff,
+        back_color: #ffffff
     ),
     dark: (
-        main_color: #1c97ce,
+        font: #ffffff,
+        box_color: #212121,
+        back_color: #181818
     )
+);
+
+$themes: (
+    1c97ce: (
+        main_color: #1c97ce,
+        main_color_light: #4abbf0,
+        main_color_dark: #0671a3,
+    ),
 );
 
 $theme-map: null;
 @mixin themeify {
     @each $theme-name, $map in $themes {
         $theme-map: $map !global;
-        [data-theme="#{$theme-name}"] & {
+        [theme="#{$theme-name}"] & {
             @content;
         }
     }
 }
-
 @function theme($key) {
     @return map-get($theme-map, $key);
+}
+
+
+$system-map: null;
+@mixin system {
+    @each $system-name, $map in $systems {
+        $system-map: $map !global;
+        [system="#{$system-name}"] & {
+            @content;
+        }
+    }
+}
+@function system($key) {
+    @return map-get($system-map, $key);
 }

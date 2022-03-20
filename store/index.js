@@ -1,7 +1,6 @@
-let load = true;
-
 // state
 export const state = () => ({
+    TOKEN: '',
     DEVICE_TYPE: '',
     Menu: [
         {
@@ -35,39 +34,47 @@ export const state = () => ({
         },
         {
             Title: '電競',
-            To: '/poker',
+            To: '/esport',
             Type: 'games'
         },
         {
             Title: '捕魚',
             To: '/fishing',
             Type: 'games'
+        },
+        {
+            Title: '優惠',
+            To: '/promotion',
+        },
+        {
+            Title: '公告',
+            To: '/bulletin',
         }
     ]
 })
 // actions
 export const actions = {
     getDeviceType({commit}) {
-        if (load) {
-            load = !load
-            setTimeout(() => {
-                load = !load
-                if (window.innerWidth <= 768 && this.state.DEVICE_TYPE === 'desktop') return commit('setDeviceType', 'mobile')
-                if (window.innerWidth > 768 && this.state.DEVICE_TYPE !== 'desktop') return commit('setDeviceType', 'desktop')    
-            }, 1000)
-        }
-    }
+        if (window.innerWidth <= 768 && this.state.DEVICE_TYPE === 'desktop') return commit('setDeviceType', 'mobile')
+        if (window.innerWidth > 768 && this.state.DEVICE_TYPE !== 'desktop') return commit('setDeviceType', 'desktop')    
+    },
 }
 
 // mutation
 export const mutations = {
     setDeviceType(state, device) {
         state.DEVICE_TYPE = device
+    },
+    setUserToken(state, token) {
+        state.TOKEN = token
     }
 }
 
 // getters
 export const getters = {
+    TOKEN: state => {
+        return state.TOKEN
+    },
     DEVICE_TYPE: state => {
         return state.DEVICE_TYPE
     }
