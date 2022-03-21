@@ -40,9 +40,9 @@
                                 maxlength="4"
                             />
                             <img
-                                v-if="CAPTCHA_CODE.Code"
+                                v-if="CAPTCHA_CODE"
                                 class="captcha"
-                                :src="CAPTCHA_CODE.Image"
+                                :src="require(`~/assets/images/captcha/${CAPTCHA_CODE}.jpg`)"
                                 alt="驗證碼"
                                 @click="getCaptcha()"
                             />
@@ -91,6 +91,9 @@
     </div>
 </template>
 <script>
+import CaptchaJson from '~/static/captcha.json'
+import LoginJson from '~/static/login.json'
+
 const Cookies = process.client ? require('js-cookie') : undefined
 
 export default {
@@ -98,10 +101,7 @@ export default {
     data() {
         return {
             DATE_TIME: '',
-            CAPTCHA_CODE: {
-                Code: '',
-                Image: '',
-            },
+            CAPTCHA_CODE: '',
             loginForm: {
                 account: '',
                 password: '',
@@ -154,14 +154,13 @@ export default {
             return time
         },
         getCaptcha() {
-            this.$axios.get('./captcha.json').then((res) => {
+            this.$axios.get(CaptchaJson).then((res) => {
                 let code = ''
-                while (this.CAPTCHA_CODE.Code === code || !code) {
+                while (this.CAPTCHA_CODE === code || !code) {
                     const random = Math.floor(Math.random() * 10)
                     code = res.data[random]
                 }
-                this.CAPTCHA_CODE.Code = code
-                this.CAPTCHA_CODE.Image = require(`~/assets/images/captcha/${code}.jpg`)
+                this.CAPTCHA_CODE = code
             })
         },
         validate(type) {
@@ -225,7 +224,7 @@ export default {
                 document.getElementById('captcha').focus()
                 return
             }
-            this.$axios.get('./login.json').then((res) => {
+            this.$axios.get(LoginJson).then((res) => {
                 let token = ''
                 const data = res.data
                 const loginForm = document.getElementById('loginForm')
@@ -238,7 +237,7 @@ export default {
                         account === data[i].Account &&
                         password === data[i].Password
                     ) {
-                        if (captcha === this.CAPTCHA_CODE.Code)
+                        if (captcha === this.CAPTCHA_CODE)
                             token = data[i].Token
                         else {
                             this.loginForm.captcha = ''
