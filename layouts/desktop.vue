@@ -239,6 +239,7 @@ export default {
                         if (captcha === this.CAPTCHA_CODE) token = data[i].Token
                         else {
                             this.loginForm.captcha = ''
+                            this.getCaptcha()
                             alert('驗證碼錯誤')
                             return
                         }
