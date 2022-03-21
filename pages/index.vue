@@ -9,7 +9,7 @@
 export default {
     name: 'IndexPage',
     layout(context) {
-        if (context.store.getters.DEVICE_TYPE === 'desktop') return 'default'
+        if (context.store.getters.DEVICE_TYPE === 'desktop') return 'desktop'
         return 'mobile'
     },
     head() {
@@ -21,7 +21,7 @@ export default {
     },
     computed: {
         isMobile() {
-            if (this.$store.getters.DEVICE_TYPE === 'desktop') this.$nuxt.setLayout('default')
+            if (this.$store.getters.DEVICE_TYPE === 'desktop') this.$nuxt.setLayout('desktop')
             else this.$nuxt.setLayout('mobile')
             return this.$store.getters.DEVICE_TYPE
         },
