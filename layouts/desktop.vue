@@ -42,7 +42,9 @@
                             <img
                                 v-if="CAPTCHA_CODE"
                                 class="captcha"
-                                :src="require(`~/assets/images/captcha/${CAPTCHA_CODE}.jpg`)"
+                                :src="
+                                    require(`~/assets/images/captcha/${CAPTCHA_CODE}.jpg`)
+                                "
                                 alt="驗證碼"
                                 @click="getCaptcha()"
                             />
@@ -91,9 +93,6 @@
     </div>
 </template>
 <script>
-import CaptchaJson from '~/static/captcha.json'
-import LoginJson from '~/static/login.json'
-
 const Cookies = process.client ? require('js-cookie') : undefined
 
 export default {
@@ -154,7 +153,7 @@ export default {
             return time
         },
         getCaptcha() {
-            this.$axios.get(CaptchaJson).then((res) => {
+            this.$axios.get('captcha.json').then((res) => {
                 let code = ''
                 while (this.CAPTCHA_CODE === code || !code) {
                     const random = Math.floor(Math.random() * 10)
@@ -224,7 +223,7 @@ export default {
                 document.getElementById('captcha').focus()
                 return
             }
-            this.$axios.get(LoginJson).then((res) => {
+            this.$axios.get('login.json').then((res) => {
                 let token = ''
                 const data = res.data
                 const loginForm = document.getElementById('loginForm')
@@ -237,8 +236,7 @@ export default {
                         account === data[i].Account &&
                         password === data[i].Password
                     ) {
-                        if (captcha === this.CAPTCHA_CODE)
-                            token = data[i].Token
+                        if (captcha === this.CAPTCHA_CODE) token = data[i].Token
                         else {
                             this.loginForm.captcha = ''
                             alert('驗證碼錯誤')
